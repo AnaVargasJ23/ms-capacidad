@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CapacidadHandler.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ms-capacidad</a> &gt; <a href="index.source.html" class="el_package">com.onclass.capacidad.infrastructure.entrypoints.handler</a> &gt; <span class="el_source">CapacidadHandler.java</span></div><h1>CapacidadHandler.java</h1><pre class="source lang-java linenums">package com.onclass.capacidad.infrastructure.entrypoints.handler;
+
+import com.onclass.capacidad.domain.api.ICapacidadServicePort;
+import com.onclass.capacidad.domain.excepcion.CapacidadException;
+import com.onclass.capacidad.infrastructure.entrypoints.dto.CapacidadRequest;
+import com.onclass.capacidad.infrastructure.entrypoints.dto.CapacidadResponse;
+import com.onclass.capacidad.infrastructure.entrypoints.mapper.CapacidadMapper;
+import com.onclass.capacidad.infrastructure.entrypoints.util.ErrorDTO;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.server.ServerRequest;
+import org.springframework.web.reactive.function.server.ServerResponse;
+import reactor.core.publisher.Mono;
+
+<span class="nc" id="L17">@Slf4j</span>
+@Component
+@RequiredArgsConstructor
+public class CapacidadHandler {
+
+    private final ICapacidadServicePort capacidadServicePort;
+    private final CapacidadMapper capacidadMapper;
+
+    public Mono&lt;ServerResponse&gt; registrar(ServerRequest request) {
+<span class="nc" id="L26">        return request.bodyToMono(CapacidadRequest.class)</span>
+<span class="nc" id="L27">                .map(capacidadMapper::toDomain)</span>
+<span class="nc" id="L28">                .flatMap(capacidadServicePort::registrar)</span>
+<span class="nc" id="L29">                .map(capacidadMapper::toResponse)</span>
+<span class="nc" id="L30">                .flatMap(response -&gt; ServerResponse</span>
+<span class="nc" id="L31">                        .status(HttpStatus.CREATED)</span>
+<span class="nc" id="L32">                        .bodyValue(response))</span>
+<span class="nc" id="L33">                .onErrorResume(CapacidadException.class, e -&gt; {</span>
+<span class="nc" id="L34">                    log.error(&quot;Error de negocio: {}&quot;, e.getMessage());</span>
+<span class="nc" id="L35">                    return ServerResponse</span>
+<span class="nc" id="L36">                            .status(HttpStatus.BAD_REQUEST)</span>
+<span class="nc" id="L37">                            .bodyValue(ErrorDTO.builder()</span>
+<span class="nc" id="L38">                                    .code(e.getCode())</span>
+<span class="nc" id="L39">                                    .message(e.getMessage())</span>
+<span class="nc" id="L40">                                    .build());</span>
+                })
+<span class="nc" id="L42">                .onErrorResume(Exception.class, e -&gt; {</span>
+<span class="nc" id="L43">                    log.error(&quot;Error inesperado: {}&quot;, e.getMessage());</span>
+<span class="nc" id="L44">                    return ServerResponse</span>
+<span class="nc" id="L45">                            .status(HttpStatus.INTERNAL_SERVER_ERROR)</span>
+<span class="nc" id="L46">                            .bodyValue(ErrorDTO.builder()</span>
+<span class="nc" id="L47">                                    .code(&quot;CAP-500&quot;)</span>
+<span class="nc" id="L48">                                    .message(&quot;Error interno del servidor&quot;)</span>
+<span class="nc" id="L49">                                    .build());</span>
+                });
+    }
+
+    public Mono&lt;ServerResponse&gt; listar(ServerRequest request) {
+<span class="nc" id="L54">        return ServerResponse.ok()</span>
+<span class="nc" id="L55">                .body(capacidadServicePort.listarTodas()</span>
+<span class="nc" id="L56">                        .map(capacidadMapper::toResponse), CapacidadResponse.class);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

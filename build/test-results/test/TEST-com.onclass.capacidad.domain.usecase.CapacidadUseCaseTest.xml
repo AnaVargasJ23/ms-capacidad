@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.onclass.capacidad.domain.usecase.CapacidadUseCaseTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2026-05-30T03:06:02.791Z" hostname="ANA-VARGASJ.local" time="0.805">
+  <properties/>
+  <testcase name="listarTodas_retornaLista()" classname="com.onclass.capacidad.domain.usecase.CapacidadUseCaseTest" time="0.751"/>
+  <testcase name="registrar_masDe20Tecnologias_lanzaError()" classname="com.onclass.capacidad.domain.usecase.CapacidadUseCaseTest" time="0.022"/>
+  <testcase name="registrar_tecnologiasRepetidas_lanzaError()" classname="com.onclass.capacidad.domain.usecase.CapacidadUseCaseTest" time="0.001"/>
+  <testcase name="registrar_nombreNull_lanzaError()" classname="com.onclass.capacidad.domain.usecase.CapacidadUseCaseTest" time="0.0"/>
+  <testcase name="registrar_tecnologiaNoExiste_lanzaError()" classname="com.onclass.capacidad.domain.usecase.CapacidadUseCaseTest" time="0.012"/>
+  <testcase name="registrar_nombreMayorA50Chars_lanzaError()" classname="com.onclass.capacidad.domain.usecase.CapacidadUseCaseTest" time="0.001"/>
+  <testcase name="registrar_descripcionVacia_lanzaError()" classname="com.onclass.capacidad.domain.usecase.CapacidadUseCaseTest" time="0.0"/>
+  <testcase name="registrar_nombreVacio_lanzaError()" classname="com.onclass.capacidad.domain.usecase.CapacidadUseCaseTest" time="0.0"/>
+  <testcase name="registrar_menosDe3Tecnologias_lanzaError()" classname="com.onclass.capacidad.domain.usecase.CapacidadUseCaseTest" time="0.0"/>
+  <testcase name="registrar_nombreDuplicado_lanzaError()" classname="com.onclass.capacidad.domain.usecase.CapacidadUseCaseTest" time="0.002"/>
+  <testcase name="registrar_descripcionMayorA90Chars_lanzaError()" classname="com.onclass.capacidad.domain.usecase.CapacidadUseCaseTest" time="0.0"/>
+  <testcase name="registrar_descripcionNull_lanzaError()" classname="com.onclass.capacidad.domain.usecase.CapacidadUseCaseTest" time="0.001"/>
+  <testcase name="registrar_exitoso()" classname="com.onclass.capacidad.domain.usecase.CapacidadUseCaseTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (/Users/ana.vargasj/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy-agent/1.17.8/f09415827a71be7ed621c7bd02550678f28bc81c/byte-buddy-agent-1.17.8.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+]]></system-err>
+</testsuite>

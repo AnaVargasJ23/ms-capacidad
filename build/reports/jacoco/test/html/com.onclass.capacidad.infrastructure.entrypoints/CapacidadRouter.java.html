@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CapacidadRouter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ms-capacidad</a> &gt; <a href="index.source.html" class="el_package">com.onclass.capacidad.infrastructure.entrypoints</a> &gt; <span class="el_source">CapacidadRouter.java</span></div><h1>CapacidadRouter.java</h1><pre class="source lang-java linenums">package com.onclass.capacidad.infrastructure.entrypoints;
+
+import com.onclass.capacidad.infrastructure.entrypoints.dto.CapacidadRequest;
+import com.onclass.capacidad.infrastructure.entrypoints.handler.CapacidadHandler;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springdoc.core.annotations.RouterOperation;
+import org.springdoc.core.annotations.RouterOperations;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.reactive.function.server.RouterFunction;
+import org.springframework.web.reactive.function.server.RouterFunctions;
+import org.springframework.web.reactive.function.server.ServerResponse;
+
+@Configuration
+@Tag(name = &quot;Capacidad&quot;, description = &quot;Gestión de capacidades del sistema On-Class&quot;)
+<span class="nc" id="L22">public class CapacidadRouter {</span>
+
+    @Bean
+    @RouterOperations({
+            @RouterOperation(
+                    path = &quot;/api/v1/capacidades&quot;,
+                    method = RequestMethod.POST,
+                    beanClass = CapacidadHandler.class,
+                    beanMethod = &quot;registrar&quot;,
+                    operation = @Operation(
+                            operationId = &quot;registrarCapacidad&quot;,
+                            summary = &quot;Registrar una nueva capacidad&quot;,
+                            tags = {&quot;Capacidad&quot;},
+                            requestBody = @RequestBody(
+                                    required = true,
+                                    content = @Content(
+                                            mediaType = &quot;application/json&quot;,
+                                            schema = @Schema(implementation = CapacidadRequest.class)
+                                    )
+                            ),
+                            responses = {
+                                    @ApiResponse(responseCode = &quot;201&quot;, description = &quot;Capacidad creada exitosamente&quot;),
+                                    @ApiResponse(responseCode = &quot;400&quot;, description = &quot;Datos inválidos o reglas de negocio violadas&quot;)
+                            }
+                    )
+            ),
+            @RouterOperation(
+                    path = &quot;/api/v1/capacidades&quot;,
+                    method = RequestMethod.GET,
+                    beanClass = CapacidadHandler.class,
+                    beanMethod = &quot;listar&quot;,
+                    operation = @Operation(
+                            operationId = &quot;listarCapacidades&quot;,
+                            summary = &quot;Listar todas las capacidades&quot;,
+                            tags = {&quot;Capacidad&quot;},
+                            responses = {
+                                    @ApiResponse(responseCode = &quot;200&quot;, description = &quot;Lista de capacidades&quot;)
+                            }
+                    )
+            )
+    })
+    public RouterFunction&lt;ServerResponse&gt; capacidadRoutes(CapacidadHandler handler) {
+<span class="nc" id="L64">        return RouterFunctions.route()</span>
+<span class="nc" id="L65">                .POST(&quot;/api/v1/capacidades&quot;, handler::registrar)</span>
+<span class="nc" id="L66">                .GET(&quot;/api/v1/capacidades&quot;, handler::listar)</span>
+<span class="nc" id="L67">                .build();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>
