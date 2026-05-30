@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CapacidadErrorEnum.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ms-capacidad</a> &gt; <a href="index.source.html" class="el_package">com.onclass.capacidad.domain.enums</a> &gt; <span class="el_source">CapacidadErrorEnum.java</span></div><h1>CapacidadErrorEnum.java</h1><pre class="source lang-java linenums">package com.onclass.capacidad.domain.enums;
+
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+<span class="fc" id="L6">@Getter</span>
+@RequiredArgsConstructor
+public enum CapacidadErrorEnum {
+
+<span class="fc" id="L10">    NOMBRE_OBLIGATORIO(&quot;CAP-001&quot;, &quot;El nombre es obligatorio&quot;),</span>
+<span class="fc" id="L11">    NOMBRE_MAX_50(&quot;CAP-002&quot;, &quot;El nombre no puede superar 50 caracteres&quot;),</span>
+<span class="fc" id="L12">    DESCRIPCION_OBLIGATORIA(&quot;CAP-003&quot;, &quot;La descripción es obligatoria&quot;),</span>
+<span class="fc" id="L13">    DESCRIPCION_MAX_90(&quot;CAP-004&quot;, &quot;La descripción no puede superar 90 caracteres&quot;),</span>
+<span class="fc" id="L14">    TECNOLOGIAS_MIN_3(&quot;CAP-005&quot;, &quot;La capacidad debe tener mínimo 3 tecnologías&quot;),</span>
+<span class="fc" id="L15">    TECNOLOGIAS_MAX_20(&quot;CAP-006&quot;, &quot;La capacidad no puede tener más de 20 tecnologías&quot;),</span>
+<span class="fc" id="L16">    TECNOLOGIAS_REPETIDAS(&quot;CAP-007&quot;, &quot;La capacidad no puede tener tecnologías repetidas&quot;),</span>
+<span class="fc" id="L17">    TECNOLOGIA_NO_EXISTE(&quot;CAP-008&quot;, &quot;Una o más tecnologías no existen&quot;),</span>
+<span class="fc" id="L18">    NOMBRE_DUPLICADO(&quot;CAP-009&quot;, &quot;Ya existe una capacidad con ese nombre&quot;);</span>
+
+    private final String code;
+    private final String message;
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

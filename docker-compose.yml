@@ -1,0 +1,13 @@
+services:
+  mysql-capacidad:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db_capacidad
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_capacidad_data:/var/lib/mysql
+
+volumes:
+  mysql_capacidad_data:
