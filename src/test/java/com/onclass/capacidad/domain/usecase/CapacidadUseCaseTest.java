@@ -2,6 +2,7 @@ package com.onclass.capacidad.domain.usecase;
 
 import com.onclass.capacidad.domain.excepcion.CapacidadException;
 import com.onclass.capacidad.domain.model.Capacidad;
+import com.onclass.capacidad.domain.model.CapacidadPage;
 import com.onclass.capacidad.domain.model.Tecnologia;
 import com.onclass.capacidad.domain.spi.ICapacidadPersistencePort;
 import com.onclass.capacidad.domain.spi.ITecnologiaServicePort;
@@ -176,4 +177,58 @@ class CapacidadUseCaseTest {
                 .expectNextCount(2)
                 .verifyComplete();
     }
+
+    @Test
+    void listarPaginado_exitoso() {
+        List<Capacidad> capacidades = List.of(
+                new Capacidad(1L, "Backend", "Desc", tecnologiasValidas()),
+                new Capacidad(2L, "Frontend", "Desc", tecnologiasValidas())
+        );
+        CapacidadPage page = new CapacidadPage(capacidades, 0, 1, 2L);
+
+        when(persistencePort.listarPaginado(0, 10, "nombre", "asc"))
+                .thenReturn(Mono.just(page));
+        when(tecnologiaServicePort.obtenerTecnologia(anyLong()))
+                .thenReturn(Mono.just(new Tecnologia(1L, "Java")));
+
+        StepVerifier.create(useCase.listarPaginado(0, 10, "nombre", "asc"))
+                .expectNextMatches(p -> p.getTotalElementos() == 2L)
+                .verifyComplete();
+    }
+
+    @Test
+    void listarPaginado_parametrosNulos_usaDefecto() {
+        List<Capacidad> capacidades = List.of(
+                new Capacidad(1L, "Backend", "Desc", tecnologiasValidas())
+        );
+        CapacidadPage page = new CapacidadPage(capacidades, 0, 1, 1L);
+
+        when(persistencePort.listarPaginado(0, 10, "nombre", "asc"))
+                .thenReturn(Mono.just(page));
+        when(tecnologiaServicePort.obtenerTecnologia(anyLong()))
+                .thenReturn(Mono.just(new Tecnologia(1L, "Java")));
+
+        StepVerifier.create(useCase.listarPaginado(0, 10, null, null))
+                .expectNextMatches(p -> p.getTotalElementos() == 1L)
+                .verifyComplete();
+    }
+
+    @Test
+    void listarPaginado_conParametrosValidos_noUsaDefecto() {
+        List<Capacidad> capacidades = List.of(
+                new Capacidad(1L, "Backend", "Desc", tecnologiasValidas())
+        );
+        CapacidadPage page = new CapacidadPage(capacidades, 0, 1, 1L);
+
+        when(persistencePort.listarPaginado(0, 10, "cantidadTecnologias", "desc"))
+                .thenReturn(Mono.just(page));
+        when(tecnologiaServicePort.obtenerTecnologia(anyLong()))
+                .thenReturn(Mono.just(new Tecnologia(1L, "Java")));
+
+        StepVerifier.create(useCase.listarPaginado(0, 10, "cantidadTecnologias", "desc"))
+                .expectNextMatches(p -> p.getTotalElementos() == 1L)
+                .verifyComplete();
+    }
+
+
 }

@@ -5,34 +5,38 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c7f8a120-2f21-4ead-a1e9-aa90b20deffc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/domain/constants/CapacidadConstants.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/domain/enums/CapacidadErrorEnum.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/domain/model/Tecnologia.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/domain/spi/ICapacidadPersistencePort.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/domain/usecase/CapacidadUseCase.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/infrastructure/adapters/http/TecnologiaHttpAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/infrastructure/adapters/persistence/CapacidadPersistenceAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/infrastructure/adapters/persistence/entity/CapacidadEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/infrastructure/adapters/persistence/entity/CapacidadTecnologiaEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/infrastructure/adapters/persistence/mapper/CapacidadEntityMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/infrastructure/adapters/persistence/repository/CapacidadR2dbcRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/infrastructure/adapters/persistence/repository/CapacidadTecnologiaR2dbcRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/infrastructure/configuration/BeanConfiguration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/infrastructure/configuration/OpenApiConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/infrastructure/entrypoints/CapacidadRouter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/infrastructure/entrypoints/dto/CapacidadRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/infrastructure/entrypoints/dto/CapacidadResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/infrastructure/entrypoints/dto/ErrorResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/infrastructure/entrypoints/dto/TecnologiaIdRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/infrastructure/entrypoints/dto/TecnologiaResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/infrastructure/entrypoints/handler/CapacidadHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/infrastructure/entrypoints/mapper/CapacidadMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/infrastructure/entrypoints/util/ErrorDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/schema.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/onclass/capacidad/domain/usecase/CapacidadUseCaseTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/domain/enums/OrdenEnum.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/domain/enums/OrdenarPorEnum.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/domain/model/CapacidadPage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/infrastructure/entrypoints/dto/CapacidadPageResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/9.3.0/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.3.0/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/9.3.0/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.3.0/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/9.3.0/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.3.0/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/9.3.0/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.3.0/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/9.3.0/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.3.0/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/onclass/capacidad/domain/api/ICapacidadServicePort.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/onclass/capacidad/domain/api/ICapacidadServicePort.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/onclass/capacidad/domain/spi/ICapacidadPersistencePort.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/onclass/capacidad/domain/spi/ICapacidadPersistencePort.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/onclass/capacidad/domain/usecase/CapacidadUseCase.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/onclass/capacidad/domain/usecase/CapacidadUseCase.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/onclass/capacidad/infrastructure/adapters/persistence/CapacidadPersistenceAdapter.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/onclass/capacidad/infrastructure/adapters/persistence/CapacidadPersistenceAdapter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/onclass/capacidad/infrastructure/entrypoints/CapacidadRouter.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/onclass/capacidad/infrastructure/entrypoints/CapacidadRouter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/onclass/capacidad/infrastructure/entrypoints/handler/CapacidadHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/onclass/capacidad/infrastructure/entrypoints/handler/CapacidadHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/libs/ms-capacidad-0.0.1-SNAPSHOT-plain.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/ms-capacidad-0.0.1-SNAPSHOT-plain.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/libs/ms-capacidad-0.0.1-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/ms-capacidad-0.0.1-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/bootJar/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/bootJar/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/CapacidadUseCase.class.uniqueId1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/domain/api/ICapacidadServicePort.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/domain/api/ICapacidadServicePort.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/domain/spi/ICapacidadPersistencePort.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/domain/spi/ICapacidadPersistencePort.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/domain/spi/ITecnologiaServicePort.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/domain/spi/ITecnologiaServicePort.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/domain/usecase/CapacidadUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/domain/usecase/CapacidadUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/infrastructure/adapters/http/TecnologiaHttpAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/infrastructure/adapters/http/TecnologiaHttpAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/infrastructure/adapters/persistence/CapacidadPersistenceAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/infrastructure/adapters/persistence/CapacidadPersistenceAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/infrastructure/entrypoints/CapacidadRouter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/infrastructure/entrypoints/CapacidadRouter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/infrastructure/entrypoints/handler/CapacidadHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/infrastructure/entrypoints/handler/CapacidadHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/onclass/capacidad/domain/usecase/CapacidadUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/onclass/capacidad/domain/usecase/CapacidadUseCaseTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +51,9 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
             <expand>
@@ -75,23 +82,23 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.7307448335415063" />
-      <entry key="MS500" value="4.645871444654594" />
-      <entry key="S2" value="6.884984208381618" />
-      <entry key="S5" value="7.57465280406421" />
-      <entry key="S10" value="8.38563726432275" />
-      <entry key="S30" value="11.343333891133051" />
-      <entry key="S60" value="13.193557842759835" />
-      <entry key="M2" value="14.450667936143324" />
-      <entry key="M5" value="15.341111439118135" />
-      <entry key="M10" value="15.663655598798332" />
-      <entry key="M15" value="15.774214836829074" />
-      <entry key="M30" value="15.890835985817887" />
-      <entry key="H1" value="16.059413506659396" />
-      <entry key="H2" value="16.56249910483043" />
-      <entry key="H4" value="17.317320960169724" />
-      <entry key="D1" value="18.61779467323097" />
-      <entry key="W1" value="18.942201148827404" />
+      <entry key="MS100" value="1.411175890672297" />
+      <entry key="MS500" value="2.805361289958883" />
+      <entry key="S2" value="5.259262653133072" />
+      <entry key="S5" value="6.2183009732128625" />
+      <entry key="S10" value="6.71762002691942" />
+      <entry key="S30" value="9.919253434138373" />
+      <entry key="S60" value="14.808438144468893" />
+      <entry key="M2" value="20.610169790699274" />
+      <entry key="M5" value="29.39511006792284" />
+      <entry key="M10" value="37.987767719852194" />
+      <entry key="M15" value="43.27148876972865" />
+      <entry key="M30" value="51.063670594696305" />
+      <entry key="H1" value="56.45722521131924" />
+      <entry key="H2" value="60.008582710763825" />
+      <entry key="H4" value="62.43684219362034" />
+      <entry key="D1" value="65.28111045622875" />
+      <entry key="W1" value="65.8933397522908" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -99,37 +106,37 @@
       <entry key="S2" value="0.0" />
       <entry key="S5" value="0.0" />
       <entry key="S10" value="0.0" />
-      <entry key="S30" value="9.721254461447267E-170" />
-      <entry key="S60" value="4.4091116030755423E-85" />
-      <entry key="M2" value="9.39040401105188E-43" />
-      <entry key="M5" value="2.3425572020978752E-17" />
-      <entry key="M10" value="6.844785603825079E-9" />
-      <entry key="M15" value="4.542028369570055E-6" />
-      <entry key="M30" value="0.003013976704301372" />
-      <entry key="H1" value="0.07763989448295944" />
-      <entry key="H2" value="0.3940555642561251" />
-      <entry key="H4" value="0.8877562317060329" />
-      <entry key="D1" value="1.7467896818775783" />
-      <entry key="W1" value="1.9616951263877553" />
+      <entry key="S30" value="6.093610354997223E-185" />
+      <entry key="S60" value="1.1038937550267033E-92" />
+      <entry key="M2" value="1.4858411094499687E-46" />
+      <entry key="M5" value="7.069772544905818E-19" />
+      <entry key="M10" value="1.189097505200084E-9" />
+      <entry key="M15" value="1.4141264804989842E-6" />
+      <entry key="M30" value="0.001681740942672963" />
+      <entry key="H1" value="0.05799553239259647" />
+      <entry key="H2" value="0.340574608353913" />
+      <entry key="H4" value="0.8253176451178181" />
+      <entry key="D1" value="1.7256863002890492" />
+      <entry key="W1" value="1.9582917920408793" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="1.6585453657449523" />
-      <entry key="MS500" value="4.608312852257066" />
-      <entry key="S2" value="6.870811674133557" />
-      <entry key="S5" value="7.56834795166562" />
-      <entry key="S10" value="8.381959432165722" />
-      <entry key="S30" value="11.34140516566723" />
-      <entry key="S60" value="13.19237107471287" />
-      <entry key="M2" value="14.44999885477468" />
-      <entry key="M5" value="15.340822342903795" />
-      <entry key="M10" value="15.663507168872272" />
-      <entry key="M15" value="15.774119522604769" />
-      <entry key="M30" value="15.893796346440038" />
-      <entry key="H1" value="16.136986340550237" />
-      <entry key="H2" value="16.956436015884755" />
-      <entry key="H4" value="18.204951472261577" />
-      <entry key="D1" value="20.364544149097437" />
-      <entry key="W1" value="20.90388984344201" />
+      <entry key="MS100" value="1.333957377663537" />
+      <entry key="MS500" value="2.77852860292765" />
+      <entry key="S2" value="5.247588832779695" />
+      <entry key="S5" value="6.212845041082568" />
+      <entry key="S10" value="6.714680369186136" />
+      <entry key="S30" value="9.917786040436246" />
+      <entry key="S60" value="14.807337047490122" />
+      <entry key="M2" value="20.609402331604098" />
+      <entry key="M5" value="29.394657649860243" />
+      <entry key="M10" value="37.98746306153475" />
+      <entry key="M15" value="43.27125405222669" />
+      <entry key="M30" value="51.065207876360624" />
+      <entry key="H1" value="56.515109800153056" />
+      <entry key="H2" value="60.3490233657072" />
+      <entry key="H4" value="63.26202700358291" />
+      <entry key="D1" value="67.00675434007056" />
+      <entry key="W1" value="67.8516247376409" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -144,6 +151,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Gradle.CapacidadUseCaseTest.executor": "Run",
+    "Gradle.CapacidadUseCaseTest.listarPaginado_conParametrosValidos_noUsaDefecto.executor": "Run",
     "Gradle.CapacidadUseCaseTest.registrar_tecnologiaNoExiste_lanzaError.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -152,7 +160,7 @@
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "feature/HU-2-registrar-capacidad",
+    "git-widget-placeholder": "feature/HU-3-listar-capacidades",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/ana.vargasj/Documents/GitHub/ms-capacidad",
@@ -168,7 +176,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Gradle.CapacidadUseCaseTest.registrar_tecnologiaNoExiste_lanzaError">
+  <component name="RunManager" selected="Gradle.CapacidadUseCaseTest.listarPaginado_conParametrosValidos_noUsaDefecto">
     <configuration name="CapacidadUseCaseTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -183,6 +191,33 @@
             <option value=":test" />
             <option value="--tests" />
             <option value="&quot;com.onclass.capacidad.domain.usecase.CapacidadUseCaseTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <GradleProfilingDisabled>false</GradleProfilingDisabled>
+      <GradleCoverageDisabled>false</GradleCoverageDisabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="CapacidadUseCaseTest.listarPaginado_conParametrosValidos_noUsaDefecto" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;com.onclass.capacidad.domain.usecase.CapacidadUseCaseTest.listarPaginado_conParametrosValidos_noUsaDefecto&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -236,8 +271,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.CapacidadUseCaseTest.registrar_tecnologiaNoExiste_lanzaError" />
+        <item itemvalue="Gradle.CapacidadUseCaseTest.listarPaginado_conParametrosValidos_noUsaDefecto" />
         <item itemvalue="Gradle.CapacidadUseCaseTest" />
+        <item itemvalue="Gradle.CapacidadUseCaseTest.registrar_tecnologiaNoExiste_lanzaError" />
       </list>
     </recent_temporary>
   </component>
@@ -258,6 +294,8 @@
       <updated>1780008239745</updated>
       <workItem from="1780008240768" duration="10023000" />
       <workItem from="1780080271981" duration="13611000" />
+      <workItem from="1780114281299" duration="5000" />
+      <workItem from="1780263843517" duration="5376000" />
     </task>
     <servers />
   </component>

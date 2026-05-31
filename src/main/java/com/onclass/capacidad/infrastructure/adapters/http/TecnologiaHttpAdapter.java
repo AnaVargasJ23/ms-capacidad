@@ -1,6 +1,7 @@
 package com.onclass.capacidad.infrastructure.adapters.http;
 
 import com.onclass.capacidad.domain.constants.CapacidadConstants;
+import com.onclass.capacidad.domain.model.Tecnologia;
 import com.onclass.capacidad.domain.spi.ITecnologiaServicePort;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +27,17 @@ public class TecnologiaHttpAdapter implements ITecnologiaServicePort {
                 .onErrorResume(e -> {
                     log.error("Error verificando tecnología {}: {}", id, e.getMessage());
                     return Mono.just(false);
+                });
+    }
+
+    public Mono<Tecnologia> obtenerTecnologia(Long id) {
+        return webClient.get()
+                .uri(CapacidadConstants.TECNOLOGIA_ENDPOINT, id)
+                .retrieve()
+                .bodyToMono(Tecnologia.class)
+                .onErrorResume(e -> {
+                    log.error("Error obteniendo tecnología {}: {}", id, e.getMessage());
+                    return Mono.just(new Tecnologia(id, null));
                 });
     }
 }

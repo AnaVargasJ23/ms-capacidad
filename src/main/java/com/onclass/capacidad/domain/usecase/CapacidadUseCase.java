@@ -5,6 +5,7 @@ import com.onclass.capacidad.domain.constants.CapacidadConstants;
 import com.onclass.capacidad.domain.enums.CapacidadErrorEnum;
 import com.onclass.capacidad.domain.excepcion.CapacidadException;
 import com.onclass.capacidad.domain.model.Capacidad;
+import com.onclass.capacidad.domain.model.CapacidadPage;
 import com.onclass.capacidad.domain.model.Tecnologia;
 import com.onclass.capacidad.domain.spi.ICapacidadPersistencePort;
 import com.onclass.capacidad.domain.spi.ITecnologiaServicePort;
@@ -101,4 +102,35 @@ public class CapacidadUseCase implements ICapacidadServicePort {
                         }))
                 .all(Boolean::booleanValue);
     }
+
+    @Override
+    public Mono<CapacidadPage> listarPaginado(int pagina, int tamanio, String ordenarPor, String direccion) {
+        String ordenValido = (ordenarPor == null || ordenarPor.isBlank()) ? "nombre" : ordenarPor;
+        String direccionValida = (direccion == null || direccion.isBlank()) ? "asc" : direccion;
+        return persistencePort.listarPaginado(pagina, tamanio, ordenValido, direccionValida)
+                .flatMap(page -> enriquecerCapacidades(page.getCapacidades())
+                        .map(capacidades -> new CapacidadPage(
+                                capacidades,
+                                page.getPaginaActual(),
+                                page.getTotalPaginas(),
+                                page.getTotalElementos()
+                        )));
+    }
+
+    private Mono<List<Capacidad>> enriquecerCapacidades(List<Capacidad> capacidades) {
+        return Flux.fromIterable(capacidades)
+                .concatMap(this::enriquecerTecnologias)
+                .collectList();
+    }
+
+    private Mono<Capacidad> enriquecerTecnologias(Capacidad capacidad) {
+        return Flux.fromIterable(capacidad.getTecnologias())
+                .concatMap(t -> tecnologiaServicePort.obtenerTecnologia(t.getId()))
+                .collectList()
+                .map(tecnologias -> {
+                    capacidad.setTecnologias(tecnologias);
+                    return capacidad;
+                });
+    }
+
 }
