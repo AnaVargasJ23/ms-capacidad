@@ -2,6 +2,7 @@
 
 import com.onclass.capacidad.domain.api.ICapacidadServicePort;
 import com.onclass.capacidad.domain.excepcion.CapacidadException;
+import com.onclass.capacidad.infrastructure.entrypoints.dto.CapacidadPageResponse;
 import com.onclass.capacidad.infrastructure.entrypoints.dto.CapacidadRequest;
 import com.onclass.capacidad.infrastructure.entrypoints.dto.CapacidadResponse;
 import com.onclass.capacidad.infrastructure.entrypoints.mapper.CapacidadMapper;
@@ -14,7 +15,7 @@ import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
-<span class="nc" id="L17">@Slf4j</span>
+<span class="nc" id="L18">@Slf4j</span>
 @Component
 @RequiredArgsConstructor
 public class CapacidadHandler {
@@ -23,37 +24,61 @@ public class CapacidadHandler {
     private final CapacidadMapper capacidadMapper;
 
     public Mono&lt;ServerResponse&gt; registrar(ServerRequest request) {
-<span class="nc" id="L26">        return request.bodyToMono(CapacidadRequest.class)</span>
-<span class="nc" id="L27">                .map(capacidadMapper::toDomain)</span>
-<span class="nc" id="L28">                .flatMap(capacidadServicePort::registrar)</span>
-<span class="nc" id="L29">                .map(capacidadMapper::toResponse)</span>
-<span class="nc" id="L30">                .flatMap(response -&gt; ServerResponse</span>
-<span class="nc" id="L31">                        .status(HttpStatus.CREATED)</span>
-<span class="nc" id="L32">                        .bodyValue(response))</span>
-<span class="nc" id="L33">                .onErrorResume(CapacidadException.class, e -&gt; {</span>
-<span class="nc" id="L34">                    log.error(&quot;Error de negocio: {}&quot;, e.getMessage());</span>
-<span class="nc" id="L35">                    return ServerResponse</span>
-<span class="nc" id="L36">                            .status(HttpStatus.BAD_REQUEST)</span>
-<span class="nc" id="L37">                            .bodyValue(ErrorDTO.builder()</span>
-<span class="nc" id="L38">                                    .code(e.getCode())</span>
-<span class="nc" id="L39">                                    .message(e.getMessage())</span>
-<span class="nc" id="L40">                                    .build());</span>
+<span class="nc" id="L27">        return request.bodyToMono(CapacidadRequest.class)</span>
+<span class="nc" id="L28">                .map(capacidadMapper::toDomain)</span>
+<span class="nc" id="L29">                .flatMap(capacidadServicePort::registrar)</span>
+<span class="nc" id="L30">                .map(capacidadMapper::toResponse)</span>
+<span class="nc" id="L31">                .flatMap(response -&gt; ServerResponse</span>
+<span class="nc" id="L32">                        .status(HttpStatus.CREATED)</span>
+<span class="nc" id="L33">                        .bodyValue(response))</span>
+<span class="nc" id="L34">                .onErrorResume(CapacidadException.class, e -&gt; {</span>
+<span class="nc" id="L35">                    log.error(&quot;Error de negocio: {}&quot;, e.getMessage());</span>
+<span class="nc" id="L36">                    return ServerResponse</span>
+<span class="nc" id="L37">                            .status(HttpStatus.BAD_REQUEST)</span>
+<span class="nc" id="L38">                            .bodyValue(ErrorDTO.builder()</span>
+<span class="nc" id="L39">                                    .code(e.getCode())</span>
+<span class="nc" id="L40">                                    .message(e.getMessage())</span>
+<span class="nc" id="L41">                                    .build());</span>
                 })
-<span class="nc" id="L42">                .onErrorResume(Exception.class, e -&gt; {</span>
-<span class="nc" id="L43">                    log.error(&quot;Error inesperado: {}&quot;, e.getMessage());</span>
-<span class="nc" id="L44">                    return ServerResponse</span>
-<span class="nc" id="L45">                            .status(HttpStatus.INTERNAL_SERVER_ERROR)</span>
-<span class="nc" id="L46">                            .bodyValue(ErrorDTO.builder()</span>
-<span class="nc" id="L47">                                    .code(&quot;CAP-500&quot;)</span>
-<span class="nc" id="L48">                                    .message(&quot;Error interno del servidor&quot;)</span>
-<span class="nc" id="L49">                                    .build());</span>
+<span class="nc" id="L43">                .onErrorResume(Exception.class, e -&gt; {</span>
+<span class="nc" id="L44">                    log.error(&quot;Error inesperado: {}&quot;, e.getMessage());</span>
+<span class="nc" id="L45">                    return ServerResponse</span>
+<span class="nc" id="L46">                            .status(HttpStatus.INTERNAL_SERVER_ERROR)</span>
+<span class="nc" id="L47">                            .bodyValue(ErrorDTO.builder()</span>
+<span class="nc" id="L48">                                    .code(&quot;CAP-500&quot;)</span>
+<span class="nc" id="L49">                                    .message(&quot;Error interno del servidor&quot;)</span>
+<span class="nc" id="L50">                                    .build());</span>
                 });
     }
 
     public Mono&lt;ServerResponse&gt; listar(ServerRequest request) {
-<span class="nc" id="L54">        return ServerResponse.ok()</span>
-<span class="nc" id="L55">                .body(capacidadServicePort.listarTodas()</span>
-<span class="nc" id="L56">                        .map(capacidadMapper::toResponse), CapacidadResponse.class);</span>
+<span class="nc" id="L55">        return ServerResponse.ok()</span>
+<span class="nc" id="L56">                .body(capacidadServicePort.listarTodas()</span>
+<span class="nc" id="L57">                        .map(capacidadMapper::toResponse), CapacidadResponse.class);</span>
+    }
+
+
+    public Mono&lt;ServerResponse&gt; listarPaginado(ServerRequest request) {
+<span class="nc" id="L62">        int pagina = Integer.parseInt(request.queryParam(&quot;page&quot;).orElse(&quot;0&quot;));</span>
+<span class="nc" id="L63">        int tamanio = Integer.parseInt(request.queryParam(&quot;size&quot;).orElse(&quot;10&quot;));</span>
+<span class="nc" id="L64">        String ordenarPor = request.queryParam(&quot;ordenarPor&quot;).orElse(&quot;nombre&quot;);</span>
+<span class="nc" id="L65">        String direccion = request.queryParam(&quot;direccion&quot;).orElse(&quot;asc&quot;);</span>
+
+<span class="nc" id="L67">        return capacidadServicePort.listarPaginado(pagina, tamanio, ordenarPor, direccion)</span>
+<span class="nc" id="L68">                .map(page -&gt; new CapacidadPageResponse(</span>
+<span class="nc" id="L69">                        page.getCapacidades().stream()</span>
+<span class="nc" id="L70">                                .map(capacidadMapper::toResponse)</span>
+<span class="nc" id="L71">                                .toList(),</span>
+<span class="nc" id="L72">                        page.getPaginaActual(),</span>
+<span class="nc" id="L73">                        page.getTotalPaginas(),</span>
+<span class="nc" id="L74">                        page.getTotalElementos()</span>
+                ))
+<span class="nc" id="L76">                .flatMap(response -&gt; ServerResponse.ok().bodyValue(response))</span>
+<span class="nc" id="L77">                .onErrorResume(CapacidadException.class, e -&gt;</span>
+<span class="nc" id="L78">                        ServerResponse.badRequest().bodyValue(ErrorDTO.builder()</span>
+<span class="nc" id="L79">                                .code(e.getCode())</span>
+<span class="nc" id="L80">                                .message(e.getMessage())</span>
+<span class="nc" id="L81">                                .build()));</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

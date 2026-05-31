@@ -58,13 +58,37 @@ import org.springframework.web.reactive.function.server.ServerResponse;
                                     @ApiResponse(responseCode = &quot;200&quot;, description = &quot;Lista de capacidades&quot;)
                             }
                     )
+            ),
+            @RouterOperation(
+                    path = &quot;/api/v1/capacidades/paginado&quot;,
+                    method = RequestMethod.GET,
+                    beanClass = CapacidadHandler.class,
+                    beanMethod = &quot;listarPaginado&quot;,
+                    operation = @Operation(
+                            operationId = &quot;listarCapacidadesPaginado&quot;,
+                            summary = &quot;Listar capacidades paginadas y ordenadas (Requiere rol ADMIN)&quot;,
+                            tags = {&quot;Capacidad&quot;},
+                            parameters = {
+                                    @io.swagger.v3.oas.annotations.Parameter(name = &quot;page&quot;, in = io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY, description = &quot;Número de página (default 0)&quot;),
+                                    @io.swagger.v3.oas.annotations.Parameter(name = &quot;size&quot;, in = io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY, description = &quot;Tamaño de página (default 10)&quot;),
+                                    @io.swagger.v3.oas.annotations.Parameter(name = &quot;ordenarPor&quot;, in = io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY, description = &quot;Campo de ordenamiento: nombre o cantidadTecnologias&quot;),
+                                    @io.swagger.v3.oas.annotations.Parameter(name = &quot;direccion&quot;, in = io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY, description = &quot;Dirección: asc o desc&quot;)
+                            },
+                            responses = {
+                                    @ApiResponse(responseCode = &quot;200&quot;, description = &quot;Lista paginada de capacidades&quot;)
+                            }
+                    )
             )
+
     })
     public RouterFunction&lt;ServerResponse&gt; capacidadRoutes(CapacidadHandler handler) {
-<span class="nc" id="L64">        return RouterFunctions.route()</span>
-<span class="nc" id="L65">                .POST(&quot;/api/v1/capacidades&quot;, handler::registrar)</span>
-<span class="nc" id="L66">                .GET(&quot;/api/v1/capacidades&quot;, handler::listar)</span>
-<span class="nc" id="L67">                .build();</span>
+<span class="nc" id="L85">        return RouterFunctions.route()</span>
+<span class="nc" id="L86">                .POST(&quot;/api/v1/capacidades&quot;, handler::registrar)</span>
+<span class="nc" id="L87">                .GET(&quot;/api/v1/capacidades&quot;, handler::listar)</span>
+<span class="nc" id="L88">                .GET(&quot;/api/v1/capacidades/paginado&quot;, handler::listarPaginado)</span>
+<span class="nc" id="L89">                .build();</span>
     }
+
+
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

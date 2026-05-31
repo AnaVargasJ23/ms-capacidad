@@ -58,12 +58,36 @@ public class CapacidadRouter {
                                     @ApiResponse(responseCode = "200", description = "Lista de capacidades")
                             }
                     )
+            ),
+            @RouterOperation(
+                    path = "/api/v1/capacidades/paginado",
+                    method = RequestMethod.GET,
+                    beanClass = CapacidadHandler.class,
+                    beanMethod = "listarPaginado",
+                    operation = @Operation(
+                            operationId = "listarCapacidadesPaginado",
+                            summary = "Listar capacidades paginadas y ordenadas (Requiere rol ADMIN)",
+                            tags = {"Capacidad"},
+                            parameters = {
+                                    @io.swagger.v3.oas.annotations.Parameter(name = "page", in = io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY, description = "Número de página (default 0)"),
+                                    @io.swagger.v3.oas.annotations.Parameter(name = "size", in = io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY, description = "Tamaño de página (default 10)"),
+                                    @io.swagger.v3.oas.annotations.Parameter(name = "ordenarPor", in = io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY, description = "Campo de ordenamiento: nombre o cantidadTecnologias"),
+                                    @io.swagger.v3.oas.annotations.Parameter(name = "direccion", in = io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY, description = "Dirección: asc o desc")
+                            },
+                            responses = {
+                                    @ApiResponse(responseCode = "200", description = "Lista paginada de capacidades")
+                            }
+                    )
             )
+
     })
     public RouterFunction<ServerResponse> capacidadRoutes(CapacidadHandler handler) {
         return RouterFunctions.route()
                 .POST("/api/v1/capacidades", handler::registrar)
                 .GET("/api/v1/capacidades", handler::listar)
+                .GET("/api/v1/capacidades/paginado", handler::listarPaginado)
                 .build();
     }
+
+
 }

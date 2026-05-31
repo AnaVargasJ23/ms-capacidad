@@ -2,6 +2,7 @@ package com.onclass.capacidad.infrastructure.entrypoints.handler;
 
 import com.onclass.capacidad.domain.api.ICapacidadServicePort;
 import com.onclass.capacidad.domain.excepcion.CapacidadException;
+import com.onclass.capacidad.infrastructure.entrypoints.dto.CapacidadPageResponse;
 import com.onclass.capacidad.infrastructure.entrypoints.dto.CapacidadRequest;
 import com.onclass.capacidad.infrastructure.entrypoints.dto.CapacidadResponse;
 import com.onclass.capacidad.infrastructure.entrypoints.mapper.CapacidadMapper;
@@ -54,5 +55,29 @@ public class CapacidadHandler {
         return ServerResponse.ok()
                 .body(capacidadServicePort.listarTodas()
                         .map(capacidadMapper::toResponse), CapacidadResponse.class);
+    }
+
+
+    public Mono<ServerResponse> listarPaginado(ServerRequest request) {
+        int pagina = Integer.parseInt(request.queryParam("page").orElse("0"));
+        int tamanio = Integer.parseInt(request.queryParam("size").orElse("10"));
+        String ordenarPor = request.queryParam("ordenarPor").orElse("nombre");
+        String direccion = request.queryParam("direccion").orElse("asc");
+
+        return capacidadServicePort.listarPaginado(pagina, tamanio, ordenarPor, direccion)
+                .map(page -> new CapacidadPageResponse(
+                        page.getCapacidades().stream()
+                                .map(capacidadMapper::toResponse)
+                                .toList(),
+                        page.getPaginaActual(),
+                        page.getTotalPaginas(),
+                        page.getTotalElementos()
+                ))
+                .flatMap(response -> ServerResponse.ok().bodyValue(response))
+                .onErrorResume(CapacidadException.class, e ->
+                        ServerResponse.badRequest().bodyValue(ErrorDTO.builder()
+                                .code(e.getCode())
+                                .message(e.getMessage())
+                                .build()));
     }
 }

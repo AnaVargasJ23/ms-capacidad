@@ -1,6 +1,7 @@
 package com.onclass.capacidad.infrastructure.adapters.persistence;
 
 import com.onclass.capacidad.domain.model.Capacidad;
+import com.onclass.capacidad.domain.model.CapacidadPage;
 import com.onclass.capacidad.domain.model.Tecnologia;
 import com.onclass.capacidad.domain.spi.ICapacidadPersistencePort;
 import com.onclass.capacidad.infrastructure.adapters.persistence.entity.CapacidadEntity;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Component
@@ -62,5 +64,50 @@ public class CapacidadPersistenceAdapter implements ICapacidadPersistencePort {
                                     return capacidad;
                                 })
                 );
+    }
+
+    @Override
+    public Mono<CapacidadPage> listarPaginado(int pagina, int tamanio, String ordenarPor, String direccion) {
+        int offset = pagina * tamanio;
+
+        return capacidadRepository.count()
+                .flatMap(total -> {
+                    int totalPaginas = (int) Math.ceil((double) total / tamanio);
+
+                    return capacidadRepository.findAll()
+                            .flatMap(entity ->
+                                    capacidadTecnologiaRepository.findByCapacidadId(entity.getId())
+                                            .map(rel -> new Tecnologia(rel.getTecnologiaId(), null))
+                                            .collectList()
+                                            .map(tecnologias -> {
+                                                Capacidad cap = capacidadEntityMapper.toDomain(entity);
+                                                cap.setTecnologias(tecnologias);
+                                                return cap;
+                                            })
+                            )
+                            .sort(getComparator(ordenarPor, direccion))
+                            .skip(offset)
+                            .take(tamanio)
+                            .collectList()
+                            .map(capacidades -> new CapacidadPage(
+                                    capacidades,
+                                    pagina,
+                                    totalPaginas,
+                                    total
+                            ));
+                });
+    }
+
+    private Comparator<Capacidad> getComparator(String ordenarPor, String direccion) {
+        Comparator<Capacidad> comparator;
+        if ("cantidadTecnologias".equalsIgnoreCase(ordenarPor)) {
+            comparator = Comparator.comparingInt(c -> c.getTecnologias().size());
+        } else {
+            comparator = Comparator.comparing(c -> c.getNombre().toLowerCase());
+        }
+        if ("desc".equalsIgnoreCase(direccion)) {
+            comparator = comparator.reversed();
+        }
+        return comparator;
     }
 }
