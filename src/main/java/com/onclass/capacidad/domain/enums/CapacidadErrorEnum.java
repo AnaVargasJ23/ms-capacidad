@@ -15,7 +15,8 @@ public enum CapacidadErrorEnum {
     TECNOLOGIAS_MAX_20("CAP-006", "La capacidad no puede tener más de 20 tecnologías"),
     TECNOLOGIAS_REPETIDAS("CAP-007", "La capacidad no puede tener tecnologías repetidas"),
     TECNOLOGIA_NO_EXISTE("CAP-008", "Una o más tecnologías no existen"),
-    NOMBRE_DUPLICADO("CAP-009", "Ya existe una capacidad con ese nombre");
+    NOMBRE_DUPLICADO("CAP-009", "Ya existe una capacidad con ese nombre"),
+    CAPACIDAD_NO_ENCONTRADA("CAP-010", "La capacidad no existe");
 
     private final String code;
     private final String message;

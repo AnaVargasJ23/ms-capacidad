@@ -222,13 +222,13 @@ class CapacidadRouterTest {
     @Test
     void eliminar_noExiste_retorna404() {
         when(servicePort.eliminar(anyLong())).thenReturn(
-                Mono.error(new CapacidadException("CAP-004", "La capacidad no existe")));
+                Mono.error(new CapacidadException("CAP-010", "La capacidad no existe")));
 
         webTestClient.delete()
                 .uri("/api/v1/capacidades/999")
                 .exchange()
                 .expectStatus().isNotFound()
                 .expectBody()
-                .jsonPath("$.code").isEqualTo("CAP-004");
+                .jsonPath("$.code").isEqualTo("CAP-010");
     }
 }
