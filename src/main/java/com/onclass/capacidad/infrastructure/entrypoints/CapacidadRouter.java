@@ -101,6 +101,29 @@ public class CapacidadRouter {
                                     @ApiResponse(responseCode = "404", description = "Capacidad no encontrada")
                             }
                     )
+            ),
+            @RouterOperation(
+                    path = "/api/v1/capacidades/{id}",
+                    method = RequestMethod.DELETE,
+                    beanClass = CapacidadHandler.class,
+                    beanMethod = "eliminar",
+                    operation = @Operation(
+                            operationId = "eliminarCapacidad",
+                            summary = "Eliminar capacidad por ID",
+                            tags = {"Capacidad"},
+                            parameters = {
+                                    @io.swagger.v3.oas.annotations.Parameter(
+                                            name = "id",
+                                            in = io.swagger.v3.oas.annotations.enums.ParameterIn.PATH,
+                                            required = true,
+                                            description = "ID de la capacidad a eliminar"
+                                    )
+                            },
+                            responses = {
+                                    @ApiResponse(responseCode = "204", description = "Capacidad eliminada exitosamente"),
+                                    @ApiResponse(responseCode = "404", description = "Capacidad no encontrada")
+                            }
+                    )
             )
 
     })
@@ -110,6 +133,7 @@ public class CapacidadRouter {
                 .GET("/api/v1/capacidades", handler::listar)
                 .GET("/api/v1/capacidades/paginado", handler::listarPaginado)
                 .GET("/api/v1/capacidades/{id}", handler::buscarPorId)
+                .DELETE("/api/v1/capacidades/{id}", handler::eliminar)
                 .build();
     }
 
