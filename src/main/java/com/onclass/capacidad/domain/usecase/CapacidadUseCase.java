@@ -151,8 +151,8 @@ public class CapacidadUseCase implements ICapacidadServicePort {
     public Mono<Void> eliminar(Long id) {
         return persistencePort.buscarPorId(id)
                 .switchIfEmpty(Mono.error(new CapacidadException(
-                        CapacidadErrorEnum.NOMBRE_OBLIGATORIO.getCode(),
-                        "La capacidad no existe")))
+                        CapacidadErrorEnum.CAPACIDAD_NO_ENCONTRADA.getCode(),
+                        CapacidadErrorEnum.CAPACIDAD_NO_ENCONTRADA.getMessage())))
                 .flatMap(capacidad -> {
                     List<Long> tecnologiaIds = capacidad.getTecnologias()
                             .stream()
