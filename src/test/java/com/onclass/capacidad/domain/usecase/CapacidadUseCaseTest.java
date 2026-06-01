@@ -232,11 +232,16 @@ class CapacidadUseCaseTest {
 
     @Test
     void buscarPorId_exitoso() {
-        Capacidad capacidad = new Capacidad(1L, "Backend Developer", "Descripción", tecnologiasValidas());
+        Capacidad capacidad = new Capacidad(1L, "Backend Developer", "Descripción",
+                List.of(new Tecnologia(9L, null)));
         when(persistencePort.buscarPorId(1L)).thenReturn(Mono.just(capacidad));
+        when(tecnologiaServicePort.obtenerTecnologia(9L))
+                .thenReturn(Mono.just(new Tecnologia(9L, "Java")));
 
         StepVerifier.create(useCase.buscarPorId(1L))
-                .expectNextMatches(c -> c.getId() == 1L && c.getNombre().equals("Backend Developer"))
+                .expectNextMatches(c -> c.getId() == 1L
+                        && c.getNombre().equals("Backend Developer")
+                        && c.getTecnologias().get(0).getNombre().equals("Java"))
                 .verifyComplete();
     }
 
