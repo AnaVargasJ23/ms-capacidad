@@ -80,5 +80,13 @@ public class CapacidadHandler {
 <span class="nc" id="L80">                                .message(e.getMessage())</span>
 <span class="nc" id="L81">                                .build()));</span>
     }
+
+    public Mono&lt;ServerResponse&gt; buscarPorId(ServerRequest request) {
+<span class="nc" id="L85">        Long id = Long.valueOf(request.pathVariable(&quot;id&quot;));</span>
+<span class="nc" id="L86">        return capacidadServicePort.buscarPorId(id)</span>
+<span class="nc" id="L87">                .map(capacidadMapper::toResponse)</span>
+<span class="nc" id="L88">                .flatMap(c -&gt; ServerResponse.ok().bodyValue(c))</span>
+<span class="nc" id="L89">                .switchIfEmpty(ServerResponse.notFound().build());</span>
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

@@ -78,6 +78,29 @@ public class CapacidadRouter {
                                     @ApiResponse(responseCode = "200", description = "Lista paginada de capacidades")
                             }
                     )
+            ),
+            @RouterOperation(
+                    path = "/api/v1/capacidades/{id}",
+                    method = RequestMethod.GET,
+                    beanClass = CapacidadHandler.class,
+                    beanMethod = "buscarPorId",
+                    operation = @Operation(
+                            operationId = "buscarCapacidadPorId",
+                            summary = "Buscar capacidad por ID",
+                            tags = {"Capacidad"},
+                            parameters = {
+                                    @io.swagger.v3.oas.annotations.Parameter(
+                                            name = "id",
+                                            in = io.swagger.v3.oas.annotations.enums.ParameterIn.PATH,
+                                            required = true,
+                                            description = "ID de la capacidad"
+                                    )
+                            },
+                            responses = {
+                                    @ApiResponse(responseCode = "200", description = "Capacidad encontrada"),
+                                    @ApiResponse(responseCode = "404", description = "Capacidad no encontrada")
+                            }
+                    )
             )
 
     })
@@ -86,6 +109,7 @@ public class CapacidadRouter {
                 .POST("/api/v1/capacidades", handler::registrar)
                 .GET("/api/v1/capacidades", handler::listar)
                 .GET("/api/v1/capacidades/paginado", handler::listarPaginado)
+                .GET("/api/v1/capacidades/{id}", handler::buscarPorId)
                 .build();
     }
 

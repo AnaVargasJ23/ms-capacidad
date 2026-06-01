@@ -5,10 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c7f8a120-2f21-4ead-a1e9-aa90b20deffc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/domain/enums/OrdenEnum.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/domain/enums/OrdenarPorEnum.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/domain/model/CapacidadPage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/infrastructure/entrypoints/dto/CapacidadPageResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/9.3.0/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.3.0/checksums/checksums.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/9.3.0/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.3.0/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/9.3.0/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.3.0/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/9.3.0/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.3.0/fileHashes/fileHashes.bin" afterDir="false" />
@@ -30,9 +27,7 @@
       <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/domain/api/ICapacidadServicePort.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/domain/api/ICapacidadServicePort.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/domain/spi/ICapacidadPersistencePort.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/domain/spi/ICapacidadPersistencePort.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/domain/spi/ITecnologiaServicePort.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/domain/spi/ITecnologiaServicePort.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/domain/usecase/CapacidadUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/domain/usecase/CapacidadUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/infrastructure/adapters/http/TecnologiaHttpAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/infrastructure/adapters/http/TecnologiaHttpAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/infrastructure/adapters/persistence/CapacidadPersistenceAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/infrastructure/adapters/persistence/CapacidadPersistenceAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/infrastructure/entrypoints/CapacidadRouter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/infrastructure/entrypoints/CapacidadRouter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/infrastructure/entrypoints/handler/CapacidadHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/onclass/capacidad/infrastructure/entrypoints/handler/CapacidadHandler.java" afterDir="false" />
@@ -148,35 +143,35 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.CapacidadUseCaseTest.executor": "Run",
-    "Gradle.CapacidadUseCaseTest.listarPaginado_conParametrosValidos_noUsaDefecto.executor": "Run",
-    "Gradle.CapacidadUseCaseTest.registrar_tecnologiaNoExiste_lanzaError.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "feature/HU-3-listar-capacidades",
-    "junie.onboarding.icon.badge.shown": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/ana.vargasj/Documents/GitHub/ms-capacidad",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "to.speed.mode.migration.done": "true",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.CapacidadUseCaseTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.CapacidadUseCaseTest.listarPaginado_conParametrosValidos_noUsaDefecto.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.CapacidadUseCaseTest.registrar_tecnologiaNoExiste_lanzaError.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/HU-3-listar-capacidades&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/ana.vargasj/Documents/GitHub/ms-capacidad&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
-  <component name="RunManager" selected="Gradle.CapacidadUseCaseTest.listarPaginado_conParametrosValidos_noUsaDefecto">
+}</component>
+  <component name="RunManager" selected="Gradle.CapacidadUseCaseTest">
     <configuration name="CapacidadUseCaseTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -271,8 +266,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.CapacidadUseCaseTest.listarPaginado_conParametrosValidos_noUsaDefecto" />
         <item itemvalue="Gradle.CapacidadUseCaseTest" />
+        <item itemvalue="Gradle.CapacidadUseCaseTest.listarPaginado_conParametrosValidos_noUsaDefecto" />
         <item itemvalue="Gradle.CapacidadUseCaseTest.registrar_tecnologiaNoExiste_lanzaError" />
       </list>
     </recent_temporary>

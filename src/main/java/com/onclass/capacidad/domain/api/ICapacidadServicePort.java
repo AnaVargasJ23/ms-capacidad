@@ -9,4 +9,6 @@ public interface ICapacidadServicePort {
     Mono<Capacidad> registrar(Capacidad capacidad);
     Flux<Capacidad> listarTodas();
     Mono<CapacidadPage> listarPaginado(int pagina, int tamanio, String ordenarPor, String direccion);
+    Mono<Capacidad> buscarPorId(Long id);
+
 }

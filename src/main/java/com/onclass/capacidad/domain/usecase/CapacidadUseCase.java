@@ -133,4 +133,9 @@ public class CapacidadUseCase implements ICapacidadServicePort {
                 });
     }
 
+    @Override
+    public Mono<Capacidad> buscarPorId(Long id) {
+        return persistencePort.buscarPorId(id);
+    }
+
 }

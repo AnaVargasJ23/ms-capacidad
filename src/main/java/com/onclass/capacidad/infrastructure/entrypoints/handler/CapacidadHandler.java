@@ -80,4 +80,12 @@ public class CapacidadHandler {
                                 .message(e.getMessage())
                                 .build()));
     }
+
+    public Mono<ServerResponse> buscarPorId(ServerRequest request) {
+        Long id = Long.valueOf(request.pathVariable("id"));
+        return capacidadServicePort.buscarPorId(id)
+                .map(capacidadMapper::toResponse)
+                .flatMap(c -> ServerResponse.ok().bodyValue(c))
+                .switchIfEmpty(ServerResponse.notFound().build());
+    }
 }
