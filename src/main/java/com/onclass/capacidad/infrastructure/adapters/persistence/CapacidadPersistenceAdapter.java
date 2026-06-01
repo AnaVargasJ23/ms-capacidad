@@ -114,6 +114,15 @@ public class CapacidadPersistenceAdapter implements ICapacidadPersistencePort {
     @Override
     public Mono<Capacidad> buscarPorId(Long id) {
         return capacidadRepository.findById(id)
-                .map(entity -> capacidadEntityMapper.toDomain(entity));
+                .flatMap(entity ->
+                        capacidadTecnologiaRepository.findByCapacidadId(entity.getId())
+                                .map(rel -> new Tecnologia(rel.getTecnologiaId(), null))
+                                .collectList()
+                                .map(tecnologias -> {
+                                    Capacidad cap = capacidadEntityMapper.toDomain(entity);
+                                    cap.setTecnologias(tecnologias);
+                                    return cap;
+                                })
+                );
     }
 }

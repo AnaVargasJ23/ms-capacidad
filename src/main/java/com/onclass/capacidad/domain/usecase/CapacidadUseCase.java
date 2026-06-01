@@ -135,7 +135,16 @@ public class CapacidadUseCase implements ICapacidadServicePort {
 
     @Override
     public Mono<Capacidad> buscarPorId(Long id) {
-        return persistencePort.buscarPorId(id);
+        return persistencePort.buscarPorId(id)
+                .flatMap(capacidad ->
+                        Flux.fromIterable(capacidad.getTecnologias())
+                                .concatMap(t -> tecnologiaServicePort.obtenerTecnologia(t.getId()))
+                                .collectList()
+                                .map(tecnologias -> {
+                                    capacidad.setTecnologias(tecnologias);
+                                    return capacidad;
+                                })
+                );
     }
 
 }
