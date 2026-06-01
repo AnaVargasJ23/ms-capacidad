@@ -230,5 +230,22 @@ class CapacidadUseCaseTest {
                 .verifyComplete();
     }
 
+    @Test
+    void buscarPorId_exitoso() {
+        Capacidad capacidad = new Capacidad(1L, "Backend Developer", "Descripción", tecnologiasValidas());
+        when(persistencePort.buscarPorId(1L)).thenReturn(Mono.just(capacidad));
+
+        StepVerifier.create(useCase.buscarPorId(1L))
+                .expectNextMatches(c -> c.getId() == 1L && c.getNombre().equals("Backend Developer"))
+                .verifyComplete();
+    }
+
+    @Test
+    void buscarPorId_noExiste_retornaVacio() {
+        when(persistencePort.buscarPorId(999L)).thenReturn(Mono.empty());
+
+        StepVerifier.create(useCase.buscarPorId(999L))
+                .verifyComplete();
+    }
 
 }

@@ -110,4 +110,10 @@ public class CapacidadPersistenceAdapter implements ICapacidadPersistencePort {
         }
         return comparator;
     }
+
+    @Override
+    public Mono<Capacidad> buscarPorId(Long id) {
+        return capacidadRepository.findById(id)
+                .map(entity -> capacidadEntityMapper.toDomain(entity));
+    }
 }

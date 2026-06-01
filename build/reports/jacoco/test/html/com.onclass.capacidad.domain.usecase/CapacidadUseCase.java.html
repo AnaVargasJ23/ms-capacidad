@@ -133,5 +133,10 @@ public class CapacidadUseCase implements ICapacidadServicePort {
                 });
     }
 
+    @Override
+    public Mono&lt;Capacidad&gt; buscarPorId(Long id) {
+<span class="fc" id="L138">        return persistencePort.buscarPorId(id);</span>
+    }
+
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

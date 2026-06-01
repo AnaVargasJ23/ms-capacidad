@@ -78,15 +78,39 @@ import org.springframework.web.reactive.function.server.ServerResponse;
                                     @ApiResponse(responseCode = &quot;200&quot;, description = &quot;Lista paginada de capacidades&quot;)
                             }
                     )
+            ),
+            @RouterOperation(
+                    path = &quot;/api/v1/capacidades/{id}&quot;,
+                    method = RequestMethod.GET,
+                    beanClass = CapacidadHandler.class,
+                    beanMethod = &quot;buscarPorId&quot;,
+                    operation = @Operation(
+                            operationId = &quot;buscarCapacidadPorId&quot;,
+                            summary = &quot;Buscar capacidad por ID&quot;,
+                            tags = {&quot;Capacidad&quot;},
+                            parameters = {
+                                    @io.swagger.v3.oas.annotations.Parameter(
+                                            name = &quot;id&quot;,
+                                            in = io.swagger.v3.oas.annotations.enums.ParameterIn.PATH,
+                                            required = true,
+                                            description = &quot;ID de la capacidad&quot;
+                                    )
+                            },
+                            responses = {
+                                    @ApiResponse(responseCode = &quot;200&quot;, description = &quot;Capacidad encontrada&quot;),
+                                    @ApiResponse(responseCode = &quot;404&quot;, description = &quot;Capacidad no encontrada&quot;)
+                            }
+                    )
             )
 
     })
     public RouterFunction&lt;ServerResponse&gt; capacidadRoutes(CapacidadHandler handler) {
-<span class="nc" id="L85">        return RouterFunctions.route()</span>
-<span class="nc" id="L86">                .POST(&quot;/api/v1/capacidades&quot;, handler::registrar)</span>
-<span class="nc" id="L87">                .GET(&quot;/api/v1/capacidades&quot;, handler::listar)</span>
-<span class="nc" id="L88">                .GET(&quot;/api/v1/capacidades/paginado&quot;, handler::listarPaginado)</span>
-<span class="nc" id="L89">                .build();</span>
+<span class="nc" id="L108">        return RouterFunctions.route()</span>
+<span class="nc" id="L109">                .POST(&quot;/api/v1/capacidades&quot;, handler::registrar)</span>
+<span class="nc" id="L110">                .GET(&quot;/api/v1/capacidades&quot;, handler::listar)</span>
+<span class="nc" id="L111">                .GET(&quot;/api/v1/capacidades/paginado&quot;, handler::listarPaginado)</span>
+<span class="nc" id="L112">                .GET(&quot;/api/v1/capacidades/{id}&quot;, handler::buscarPorId)</span>
+<span class="nc" id="L113">                .build();</span>
     }
 
 
