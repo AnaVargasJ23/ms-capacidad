@@ -40,4 +40,17 @@ public class TecnologiaHttpAdapter implements ITecnologiaServicePort {
                     return Mono.just(new Tecnologia(id, null));
                 });
     }
+
+    @Override
+    public Mono<Void> eliminarTecnologia(Long id) {
+        return webClient.delete()
+                .uri(CapacidadConstants.TECNOLOGIA_BASE_URL + "/api/v1/tecnologias/{id}", id)
+                .retrieve()
+                .toBodilessEntity()
+                .then()
+                .onErrorResume(e -> {
+                    log.error("Error eliminando tecnología {}: {}", id, e.getMessage());
+                    return Mono.empty();
+                });
+    }
 }

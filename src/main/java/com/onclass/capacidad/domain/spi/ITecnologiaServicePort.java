@@ -7,4 +7,6 @@ public interface ITecnologiaServicePort {
     Mono<Boolean> existeTecnologia(Long id);
 
     Mono<Tecnologia> obtenerTecnologia(Long id);
+
+    Mono<Void> eliminarTecnologia(Long id);
 }

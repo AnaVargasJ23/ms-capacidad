@@ -125,4 +125,20 @@ public class CapacidadPersistenceAdapter implements ICapacidadPersistencePort {
                                 })
                 );
     }
+
+    @Override
+    @Transactional
+    public Mono<Void> eliminar(Long id) {
+        return capacidadTecnologiaRepository.deleteByCapacidadId(id)
+                .then(capacidadRepository.deleteById(id));
+    }
+
+    @Override
+    public Flux<Long> obtenerTecnologiasDeOtrasCapacidades(Long capacidadId, List<Long> tecnologiaIds) {
+        return capacidadTecnologiaRepository.findAll()
+                .filter(rel -> !rel.getCapacidadId().equals(capacidadId)
+                        && tecnologiaIds.contains(rel.getTecnologiaId()))
+                .map(CapacidadTecnologiaEntity::getTecnologiaId)
+                .distinct();
+    }
 }

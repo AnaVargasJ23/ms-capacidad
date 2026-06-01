@@ -147,4 +147,29 @@ public class CapacidadUseCase implements ICapacidadServicePort {
                 );
     }
 
+    @Override
+    public Mono<Void> eliminar(Long id) {
+        return persistencePort.buscarPorId(id)
+                .switchIfEmpty(Mono.error(new CapacidadException(
+                        CapacidadErrorEnum.NOMBRE_OBLIGATORIO.getCode(),
+                        "La capacidad no existe")))
+                .flatMap(capacidad -> {
+                    List<Long> tecnologiaIds = capacidad.getTecnologias()
+                            .stream()
+                            .map(Tecnologia::getId)
+                            .toList();
+                    return persistencePort.obtenerTecnologiasDeOtrasCapacidades(id, tecnologiaIds)
+                            .collectList()
+                            .flatMap(tecnologiasEnOtras -> {
+                                List<Long> tecnologiasAEliminar = tecnologiaIds.stream()
+                                        .filter(tId -> !tecnologiasEnOtras.contains(tId))
+                                        .toList();
+                                return persistencePort.eliminar(id)
+                                        .then(Flux.fromIterable(tecnologiasAEliminar)
+                                                .flatMap(tId -> tecnologiaServicePort.eliminarTecnologia(tId))
+                                                .then());
+                            });
+                });
+    }
+
 }

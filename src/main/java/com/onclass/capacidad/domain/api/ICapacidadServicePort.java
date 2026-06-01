@@ -10,5 +10,5 @@ public interface ICapacidadServicePort {
     Flux<Capacidad> listarTodas();
     Mono<CapacidadPage> listarPaginado(int pagina, int tamanio, String ordenarPor, String direccion);
     Mono<Capacidad> buscarPorId(Long id);
-
+    Mono<Void> eliminar(Long id);
 }

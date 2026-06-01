@@ -253,4 +253,39 @@ class CapacidadUseCaseTest {
                 .verifyComplete();
     }
 
+    @Test
+    void eliminar_exitoso() {
+        Capacidad capacidad = new Capacidad(1L, "Backend", "Desc",
+                List.of(new Tecnologia(9L, null)));
+        when(persistencePort.buscarPorId(1L)).thenReturn(Mono.just(capacidad));
+        when(persistencePort.obtenerTecnologiasDeOtrasCapacidades(1L, List.of(9L)))
+                .thenReturn(Flux.empty());
+        when(persistencePort.eliminar(1L)).thenReturn(Mono.empty());
+        when(tecnologiaServicePort.eliminarTecnologia(9L)).thenReturn(Mono.empty());
+
+        StepVerifier.create(useCase.eliminar(1L))
+                .verifyComplete();
+    }
+
+    @Test
+    void eliminar_capacidadNoExiste_lanzaError() {
+        when(persistencePort.buscarPorId(999L)).thenReturn(Mono.empty());
+
+        StepVerifier.create(useCase.eliminar(999L))
+                .expectError(CapacidadException.class)
+                .verify();
+    }
+
+    @Test
+    void eliminar_tecnologiaEnOtrasCapacidades_noElimina() {
+        Capacidad capacidad = new Capacidad(1L, "Backend", "Desc",
+                List.of(new Tecnologia(9L, null)));
+        when(persistencePort.buscarPorId(1L)).thenReturn(Mono.just(capacidad));
+        when(persistencePort.obtenerTecnologiasDeOtrasCapacidades(1L, List.of(9L)))
+                .thenReturn(Flux.just(9L));
+        when(persistencePort.eliminar(1L)).thenReturn(Mono.empty());
+
+        StepVerifier.create(useCase.eliminar(1L))
+                .verifyComplete();
+    }
 }

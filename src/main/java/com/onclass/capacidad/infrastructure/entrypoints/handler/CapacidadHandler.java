@@ -88,4 +88,19 @@ public class CapacidadHandler {
                 .flatMap(c -> ServerResponse.ok().bodyValue(c))
                 .switchIfEmpty(ServerResponse.notFound().build());
     }
+
+    public Mono<ServerResponse> eliminar(ServerRequest request) {
+        Long id = Long.valueOf(request.pathVariable("id"));
+        return capacidadServicePort.eliminar(id)
+                .then(ServerResponse.noContent().build())
+                .onErrorResume(CapacidadException.class, e -> {
+                    log.error("Error de negocio: {}", e.getMessage());
+                    return ServerResponse
+                            .status(HttpStatus.NOT_FOUND)
+                            .bodyValue(ErrorDTO.builder()
+                                    .code(e.getCode())
+                                    .message(e.getMessage())
+                                    .build());
+                });
+    }
 }
