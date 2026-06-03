@@ -25,12 +25,8 @@ public class CapacidadUseCase implements ICapacidadServicePort {
 
     @Override
     public Mono<Capacidad> registrar(Capacidad capacidad) {
-        try {
-            validar(capacidad);
-        } catch (CapacidadException e) {
-            return Mono.error(e);
-        }
-        return validarTecnologiasExisten(capacidad.getTecnologias())
+        return validar(capacidad)
+                .flatMap(c -> validarTecnologiasExisten(c.getTecnologias()))
                 .flatMap(ignored -> persistencePort.existePorNombre(capacidad.getNombre()))
                 .flatMap(existe -> {
                     if (existe) {
@@ -38,69 +34,14 @@ public class CapacidadUseCase implements ICapacidadServicePort {
                                 CapacidadErrorEnum.NOMBRE_DUPLICADO.getCode(),
                                 CapacidadErrorEnum.NOMBRE_DUPLICADO.getMessage()));
                     }
-                    return persistencePort.guardar(capacidad);
+                    return persistencePort.guardar(capacidad)
+                            .flatMap(this::enriquecerTecnologias);
                 });
     }
 
     @Override
     public Flux<Capacidad> listarTodas() {
         return persistencePort.listarTodas();
-    }
-
-    private void validar(Capacidad capacidad) {
-        if (capacidad.getNombre() == null || capacidad.getNombre().isBlank()) {
-            throw new CapacidadException(
-                    CapacidadErrorEnum.NOMBRE_OBLIGATORIO.getCode(),
-                    CapacidadErrorEnum.NOMBRE_OBLIGATORIO.getMessage());
-        }
-        if (capacidad.getNombre().length() > CapacidadConstants.NOMBRE_MAX_LENGTH) {
-            throw new CapacidadException(
-                    CapacidadErrorEnum.NOMBRE_MAX_50.getCode(),
-                    CapacidadErrorEnum.NOMBRE_MAX_50.getMessage());
-        }
-        if (capacidad.getDescripcion() == null || capacidad.getDescripcion().isBlank()) {
-            throw new CapacidadException(
-                    CapacidadErrorEnum.DESCRIPCION_OBLIGATORIA.getCode(),
-                    CapacidadErrorEnum.DESCRIPCION_OBLIGATORIA.getMessage());
-        }
-        if (capacidad.getDescripcion().length() > CapacidadConstants.DESCRIPCION_MAX_LENGTH) {
-            throw new CapacidadException(
-                    CapacidadErrorEnum.DESCRIPCION_MAX_90.getCode(),
-                    CapacidadErrorEnum.DESCRIPCION_MAX_90.getMessage());
-        }
-        if (capacidad.getTecnologias() == null
-                || capacidad.getTecnologias().size() < CapacidadConstants.TECNOLOGIAS_MIN) {
-            throw new CapacidadException(
-                    CapacidadErrorEnum.TECNOLOGIAS_MIN_3.getCode(),
-                    CapacidadErrorEnum.TECNOLOGIAS_MIN_3.getMessage());
-        }
-        if (capacidad.getTecnologias().size() > CapacidadConstants.TECNOLOGIAS_MAX) {
-            throw new CapacidadException(
-                    CapacidadErrorEnum.TECNOLOGIAS_MAX_20.getCode(),
-                    CapacidadErrorEnum.TECNOLOGIAS_MAX_20.getMessage());
-        }
-        List<Long> ids = capacidad.getTecnologias().stream()
-                .map(Tecnologia::getId).toList();
-        Set<Long> idsUnicos = new HashSet<>(ids);
-        if (idsUnicos.size() != ids.size()) {
-            throw new CapacidadException(
-                    CapacidadErrorEnum.TECNOLOGIAS_REPETIDAS.getCode(),
-                    CapacidadErrorEnum.TECNOLOGIAS_REPETIDAS.getMessage());
-        }
-    }
-
-    private Mono<Boolean> validarTecnologiasExisten(List<Tecnologia> tecnologias) {
-        return Flux.fromIterable(tecnologias)
-                .flatMap(t -> tecnologiaServicePort.existeTecnologia(t.getId())
-                        .flatMap(existe -> {
-                            if (!existe) {
-                                return Mono.error(new CapacidadException(
-                                        CapacidadErrorEnum.TECNOLOGIA_NO_EXISTE.getCode(),
-                                        CapacidadErrorEnum.TECNOLOGIA_NO_EXISTE.getMessage()));
-                            }
-                            return Mono.just(existe);
-                        }))
-                .all(Boolean::booleanValue);
     }
 
     @Override
@@ -115,22 +56,6 @@ public class CapacidadUseCase implements ICapacidadServicePort {
                                 page.getTotalPaginas(),
                                 page.getTotalElementos()
                         )));
-    }
-
-    private Mono<List<Capacidad>> enriquecerCapacidades(List<Capacidad> capacidades) {
-        return Flux.fromIterable(capacidades)
-                .concatMap(this::enriquecerTecnologias)
-                .collectList();
-    }
-
-    private Mono<Capacidad> enriquecerTecnologias(Capacidad capacidad) {
-        return Flux.fromIterable(capacidad.getTecnologias())
-                .concatMap(t -> tecnologiaServicePort.obtenerTecnologia(t.getId()))
-                .collectList()
-                .map(tecnologias -> {
-                    capacidad.setTecnologias(tecnologias);
-                    return capacidad;
-                });
     }
 
     @Override
@@ -166,10 +91,82 @@ public class CapacidadUseCase implements ICapacidadServicePort {
                                         .toList();
                                 return persistencePort.eliminar(id)
                                         .then(Flux.fromIterable(tecnologiasAEliminar)
-                                                .flatMap(tId -> tecnologiaServicePort.eliminarTecnologia(tId))
+                                                .flatMap(tecnologiaServicePort::eliminarTecnologia)
                                                 .then());
                             });
                 });
     }
 
+    private Mono<Capacidad> validar(Capacidad capacidad) {
+        if (capacidad.getNombre() == null || capacidad.getNombre().isBlank()) {
+            return Mono.error(new CapacidadException(
+                    CapacidadErrorEnum.NOMBRE_OBLIGATORIO.getCode(),
+                    CapacidadErrorEnum.NOMBRE_OBLIGATORIO.getMessage()));
+        }
+        if (capacidad.getNombre().length() > CapacidadConstants.NOMBRE_MAX_LENGTH) {
+            return Mono.error(new CapacidadException(
+                    CapacidadErrorEnum.NOMBRE_MAX_50.getCode(),
+                    CapacidadErrorEnum.NOMBRE_MAX_50.getMessage()));
+        }
+        if (capacidad.getDescripcion() == null || capacidad.getDescripcion().isBlank()) {
+            return Mono.error(new CapacidadException(
+                    CapacidadErrorEnum.DESCRIPCION_OBLIGATORIA.getCode(),
+                    CapacidadErrorEnum.DESCRIPCION_OBLIGATORIA.getMessage()));
+        }
+        if (capacidad.getDescripcion().length() > CapacidadConstants.DESCRIPCION_MAX_LENGTH) {
+            return Mono.error(new CapacidadException(
+                    CapacidadErrorEnum.DESCRIPCION_MAX_90.getCode(),
+                    CapacidadErrorEnum.DESCRIPCION_MAX_90.getMessage()));
+        }
+        if (capacidad.getTecnologias() == null
+                || capacidad.getTecnologias().size() < CapacidadConstants.TECNOLOGIAS_MIN) {
+            return Mono.error(new CapacidadException(
+                    CapacidadErrorEnum.TECNOLOGIAS_MIN_3.getCode(),
+                    CapacidadErrorEnum.TECNOLOGIAS_MIN_3.getMessage()));
+        }
+        if (capacidad.getTecnologias().size() > CapacidadConstants.TECNOLOGIAS_MAX) {
+            return Mono.error(new CapacidadException(
+                    CapacidadErrorEnum.TECNOLOGIAS_MAX_20.getCode(),
+                    CapacidadErrorEnum.TECNOLOGIAS_MAX_20.getMessage()));
+        }
+        List<Long> ids = capacidad.getTecnologias().stream()
+                .map(Tecnologia::getId).toList();
+        Set<Long> idsUnicos = new HashSet<>(ids);
+        if (idsUnicos.size() != ids.size()) {
+            return Mono.error(new CapacidadException(
+                    CapacidadErrorEnum.TECNOLOGIAS_REPETIDAS.getCode(),
+                    CapacidadErrorEnum.TECNOLOGIAS_REPETIDAS.getMessage()));
+        }
+        return Mono.just(capacidad);
+    }
+
+    private Mono<Boolean> validarTecnologiasExisten(List<Tecnologia> tecnologias) {
+        return Flux.fromIterable(tecnologias)
+                .flatMap(t -> tecnologiaServicePort.existeTecnologia(t.getId())
+                        .flatMap(existe -> {
+                            if (!existe) {
+                                return Mono.error(new CapacidadException(
+                                        CapacidadErrorEnum.TECNOLOGIA_NO_EXISTE.getCode(),
+                                        CapacidadErrorEnum.TECNOLOGIA_NO_EXISTE.getMessage()));
+                            }
+                            return Mono.just(existe);
+                        }))
+                .all(Boolean::booleanValue);
+    }
+
+    private Mono<List<Capacidad>> enriquecerCapacidades(List<Capacidad> capacidades) {
+        return Flux.fromIterable(capacidades)
+                .concatMap(this::enriquecerTecnologias)
+                .collectList();
+    }
+
+    private Mono<Capacidad> enriquecerTecnologias(Capacidad capacidad) {
+        return Flux.fromIterable(capacidad.getTecnologias())
+                .concatMap(t -> tecnologiaServicePort.obtenerTecnologia(t.getId()))
+                .collectList()
+                .map(tecnologias -> {
+                    capacidad.setTecnologias(tecnologias);
+                    return capacidad;
+                });
+    }
 }

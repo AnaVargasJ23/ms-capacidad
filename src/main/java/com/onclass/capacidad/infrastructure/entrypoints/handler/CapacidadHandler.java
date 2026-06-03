@@ -3,6 +3,7 @@ package com.onclass.capacidad.infrastructure.entrypoints.handler;
 import com.onclass.capacidad.domain.api.ICapacidadServicePort;
 import com.onclass.capacidad.domain.excepcion.CapacidadException;
 import com.onclass.capacidad.infrastructure.entrypoints.dto.CapacidadPageResponse;
+import com.onclass.capacidad.infrastructure.entrypoints.dto.CapacidadRegistradaResponse;
 import com.onclass.capacidad.infrastructure.entrypoints.dto.CapacidadRequest;
 import com.onclass.capacidad.infrastructure.entrypoints.dto.CapacidadResponse;
 import com.onclass.capacidad.infrastructure.entrypoints.mapper.CapacidadMapper;
@@ -27,10 +28,17 @@ public class CapacidadHandler {
         return request.bodyToMono(CapacidadRequest.class)
                 .map(capacidadMapper::toDomain)
                 .flatMap(capacidadServicePort::registrar)
-                .map(capacidadMapper::toResponse)
-                .flatMap(response -> ServerResponse
+                .flatMap(capacidad -> ServerResponse
                         .status(HttpStatus.CREATED)
-                        .bodyValue(response))
+                        .bodyValue(CapacidadRegistradaResponse.builder()
+                                .id(capacidad.getId())
+                                .nombre(capacidad.getNombre())
+                                .descripcion(capacidad.getDescripcion())
+                                .tecnologias(capacidad.getTecnologias().stream()
+                                        .map(capacidadMapper::toResponse)
+                                        .toList())
+                                .mensaje("Capacidad registrada exitosamente")
+                                .build()))
                 .onErrorResume(CapacidadException.class, e -> {
                     log.error("Error de negocio: {}", e.getMessage());
                     return ServerResponse
