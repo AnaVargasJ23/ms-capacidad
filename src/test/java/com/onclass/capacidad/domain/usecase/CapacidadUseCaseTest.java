@@ -46,7 +46,10 @@ class CapacidadUseCaseTest {
         Capacidad capacidad = new Capacidad(null, "Backend", "Descripción válida", tecnologiasValidas());
         when(tecnologiaServicePort.existeTecnologia(any())).thenReturn(Mono.just(true));
         when(persistencePort.existePorNombre("Backend")).thenReturn(Mono.just(false));
-        when(persistencePort.guardar(any())).thenReturn(Mono.just(new Capacidad(1L, "Backend", "Descripción válida", tecnologiasValidas())));
+        when(persistencePort.guardar(any())).thenReturn(Mono.just(
+                new Capacidad(1L, "Backend", "Descripción válida", tecnologiasValidas())));
+        when(tecnologiaServicePort.obtenerTecnologia(anyLong()))
+                .thenReturn(Mono.just(new Tecnologia(1L, "Java")));
 
         StepVerifier.create(useCase.registrar(capacidad))
                 .expectNextMatches(c -> c.getId() == 1L && c.getNombre().equals("Backend"))
